@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const baseUrl = 'https://vercel.com/sartajs-projects-d363a8b6/my-next-app';
+  const baseUrl = 'https://my-next-app-teal-phi.vercel.app/';
 
   const urls = [
     {

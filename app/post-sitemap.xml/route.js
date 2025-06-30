@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'; // ✅ This line is required
 
 export async function GET() {
-  const baseUrl = 'https://vercel.com/sartajs-projects-d363a8b6/my-next-app';
+  const baseUrl = 'https://my-next-app-teal-phi.vercel.app';
   const sheetUrl = 'https://opensheet.elk.sh/1AwQWWJTAuf__DsRtL2Ma3BeP5xUh_5N15k5MDki-aUE/Sheet1';
 
   let sheetData = [];
