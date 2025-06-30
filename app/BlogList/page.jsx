@@ -1,6 +1,6 @@
 'use client'; // Required for hooks
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation'; // ✅ use Next.js version
 import Bottom from '../components/Bottom';
 import Header from '../components/Header';
@@ -25,6 +25,7 @@ const searchParams = useSearchParams(); // ✅ This is correct for next/navigati
     : categories;
 
   return (
+        <Suspense fallback={<div>Loading BlogList...</div>}>
     <div className="bg-gray-100 text-gray-900 min-h-screen">
       <Header />
 
@@ -44,6 +45,7 @@ const searchParams = useSearchParams(); // ✅ This is correct for next/navigati
 
       <Bottom />
     </div>
+    </Suspense>
   );
 };
 
