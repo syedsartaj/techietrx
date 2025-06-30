@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import BlogPost from './BlogPost'; // 👇 Moved logic here
+import BlogPost from './BlogPost'; // ✅ Correct default import
 
 export default function BlogPage() {
   return (
