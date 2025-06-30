@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const baseUrl = 'http://localhost:3000'; // Replace with your actual domain in production
+  const baseUrl = 'https://vercel.com/sartajs-projects-d363a8b6/my-next-app'; // Replace with your actual domain in production
 
   const pages = ['', 'about', 'contactus', 'BlogList'];
 
