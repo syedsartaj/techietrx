@@ -10,15 +10,13 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchSheetData = async () => {
-                console.log("data");
-
       try {
-        const res = await fetch('https://opensheet.elk.sh/1AwQWWJTAuf__DsRtL2Ma3BeP5xUh_5N15k5MDki-aUE/Sheet1');
+        const res = await fetch('/api/read-sheet');
         const data = await res.json();
         setSheetData(data);
-        console.log(data);
+        console.log('✅ Sheet data:', data);
       } catch (error) {
-        console.error('Error fetching sheet data:', error);
+        console.error('❌ Error fetching sheet data:', error);
       } finally {
         setLoading(false);
       }
