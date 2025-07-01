@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const baseUrl = 'https://my-next-app-teal-phi.vercel.app/';
+  const baseUrl = process.env.DOMAIN; // Replace with your actual domain in production
 
   const urls = [
     {
