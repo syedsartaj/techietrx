@@ -4,16 +4,19 @@ import React from 'react';
 import { useSearchParams } from 'next/navigation';
 import Bottom from '../components/Bottom';
 import Header from '../components/Header';
-import Carousel from '../components/Carousel';
 import { useData } from '../DataContext';
+import Bloglist2 from './Bloglist2';
+import Bloglist1 from './Bloglist1';
 
 const slugify = (str) => str?.trim().toLowerCase().replace(/\s+/g, '-');
 
 const BlogListClient = () => {
-  const { sheetData, loading } = useData();
+  const { sheetData, sheet2Data, loading } = useData();
   const searchParams = useSearchParams();
   const selectedCategory = slugify(searchParams.get('cat'));
-
+  // Determine layout from sheet2Data
+  const layoutData = sheet2Data.find(row => row.bloglayout);
+  const blogLayout = layoutData?.bloglayout?.toString().trim() || '1'; // 
   const categories = Array.from(
     new Set(sheetData.map(post => post.category?.trim()).filter(Boolean))
   );
@@ -24,18 +27,15 @@ const BlogListClient = () => {
 
   return (
     <div className="bg-gray-100 text-gray-900 min-h-screen">
-      <Header />
-      {loading ? (
+{loading ? (
         <div className="text-center py-10 font-semibold text-lg">Loading blog posts...</div>
+      ) : blogLayout === '1' ? (
+        <Bloglist1/>
+      ) : blogLayout === '2' ? (
+        (<Bloglist2/>)
       ) : (
-        filteredCategories.map((cat, idx) => {
-          const postsForCategory = sheetData.filter(
-            post => slugify(post.category) === slugify(cat)
-          );
-          return <Carousel key={idx} title={cat} posts={postsForCategory} />;
-        })
+        <div className="text-center py-10 text-red-600">Invalid layout type</div>
       )}
-      <Bottom />
     </div>
   );
 };

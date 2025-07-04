@@ -1,5 +1,5 @@
 import React from 'react';
-const Bottom = () => {
+const Bottom = ({ companyName, companySlogan }) => {
 const categories = [
   'PC Updates',
   'Technology Updates',
@@ -14,8 +14,8 @@ const categories = [
     <footer className="bg-blue-900 text-white py-8 mt-12">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between">
           <div className="mb-6 md:mb-0">
-            <h4 className="text-lg font-semibold mb-2">About Us</h4>
-            <p className="text-sm text-gray-300">PC World Solutions is your go-to source for tech updates and strategies.</p>
+            <h4 className="text-lg font-semibold mb-2">{companyName}</h4>
+            <p className="text-sm text-gray-300">{companySlogan}</p>
           </div>
           <div>
             <h4 className="text-lg font-semibold mb-2">Categories</h4>
