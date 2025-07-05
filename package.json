@@ -9,12 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "adm-zip": "^0.5.16",
+    "bcryptjs": "^3.0.2",
     "googleapis": "^150.0.1",
+    "mongoose": "^8.16.1",
     "next": "^15.3.4",
+    "node-fetch": "^3.3.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-slick": "^0.30.3",
-    "slick-carousel": "^1.8.1"
+    "simple-git": "^3.28.0",
+    "slick-carousel": "^1.8.1",
+    "tmp-promise": "^3.0.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
