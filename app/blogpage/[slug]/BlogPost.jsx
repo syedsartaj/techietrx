@@ -1,21 +1,33 @@
 'use client';
 
 import React from 'react';
+import { useEffect,useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useData } from '../DataContext';
-import Header from '../components/Header';
-import Bottom from '../components/Bottom';
+import { useData } from '../../DataContext';
+import Navbar from '../../components/Navbar';
+import Footerfour from '../../components/Footerfour';
 
 const BlogPost = () => {
+    const [blogId, setBlogId] = useState(null);
+
+  useEffect(() => {
+    const id = localStorage.getItem('blogId');
+    if (id) {
+      setBlogId(id);
+      console.log(id,'here');
+      // fetch blog data using `id` if needed
+    }
+  }, []);
+
   const { sheetData, loading } = useData();
   const searchParams = useSearchParams();
   const selectedId = searchParams.get('id');
 
-  const blogPost = sheetData.find(post => post.id === selectedId);
+  const blogPost = sheetData.find(post => post.id === blogId);
 
   return (
     <div className="bg-gray-100 text-gray-900 min-h-screen">
-      <Header />
+      <Navbar />
       {loading ? (
         <div className="text-center py-10 font-semibold text-lg">Loading blog post...</div>
       ) : blogPost ? (
@@ -42,7 +54,7 @@ const BlogPost = () => {
           Blog post not found.
         </div>
       )}
-      <Bottom />
+      <Footerfour />
     </div>
   );
 };

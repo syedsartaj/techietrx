@@ -24,7 +24,7 @@ export default function Footertwo({ companyName, companySlogan }) {
         </div>
       </div>
       <div className="container mx-auto px-4 pt-8 text-center text-sm">
-        &copy; {new Date().getFullYear()} DigitalPulse. All rights reserved.
+        &copy; {new Date().getFullYear()} All rights reserved.
       </div>
     </footer>
   );

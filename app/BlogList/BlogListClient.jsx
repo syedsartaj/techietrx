@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
-import Bottom from '../components/Bottom';
+import Footerfour from '../components/Footerfour';
 import Header from '../components/Header';
 import { useData } from '../DataContext';
 import Bloglist2 from './Bloglist2';

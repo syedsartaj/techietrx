@@ -4,7 +4,7 @@ import { useData } from '../DataContext';
 import Footerone from './Ooterone';
 import Footertwo from './Ootertwo';
 import Footerthree from './Ooterthree';
-import Bottom from './Bottom';
+import Footerfour from './Footerfour';
 
 const Footer = () => {
   const { sheet2Data, loading } = useData();
@@ -25,9 +25,9 @@ const Footer = () => {
     case '3':
       return <Footerthree {...footerProps}/>;
     case '4':
-        return <Bottom {...footerProps}/>;
+        return <Footerfour {...footerProps}/>;
     default:
-      return <Bottom/>; // fallback
+      return <Footerfour/>; // fallback
   }
 };
 

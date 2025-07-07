@@ -21,10 +21,14 @@ const Carousel = ({ title, posts }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleCardClick = (post) => {
-    const id = post.id || post.link;
-    if (id) router.push(`/blogpage?id=${encodeURIComponent(id)}`);
-  };
+const handleCardClick = (post) => {
+  const id = post.id || post.link;
+  const keyword = post.title?.toLowerCase().replace(/\s+/g, '-'); // 👈 Replace spaces with hyphens
+  if (id && keyword) {
+    localStorage.setItem('blogId', id); // 👈 store the id in sessionStorage
+    router.push(`/blogpage/${encodeURIComponent(keyword)}`);
+  }
+};
 
   const shouldUseCarousel = isMobile ? posts.length >= 2 : posts.length >= 4;
 
