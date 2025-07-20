@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
-import Client from '@/models/Client'; // adjust this path to your schema file
+import Client from '@/models/Client';
 
 export async function GET(request: Request) {
   try {
@@ -13,33 +13,34 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Missing domain' }, { status: 400 });
     }
 
-    // Connect to MongoDB
-    if (!mongoose.connections[0].readyState) {
-      await mongoose.connect(mongoUri);
-    }
-//
-    // Find the user by email
-    const user = await Client.findOne({ email });
-
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    // ✅ Use global connection caching for Mongoose (important for serverless)
+    if (mongoose.connection.readyState === 0) {
+      await mongoose.connect(mongoUri, {
+        dbName: 'test', // optional: set your specific db name if needed
+        maxPoolSize: 5,
+        serverSelectionTimeoutMS: 3000,
+      });
     }
 
-    // Find the deployment with the matching domain
-    const deployment = user.Deployments.find((d: any) => d.Domain === domain);
+    // ✅ Use projection and filter in a single query (more efficient)
+    const user = await Client.findOne(
+      { email, 'Deployments.Domain': domain },
+      {
+        'Deployments.$': 1, // only return the matched Deployment
+      }
+    ).lean() as any; // ✅ .lean() returns plain JS object (faster than Mongoose documents)
 
-    if (!deployment) {
+    if (!user || !user.Deployments?.length) {
       return NextResponse.json({ error: 'Deployment not found' }, { status: 404 });
     }
 
-    // Assuming only one Data item per deployment
-    const data = deployment.Data[0];
+    const deployment = user.Deployments[0];
+    const data = deployment.Data?.[0] || {};
 
     return NextResponse.json({
-      sheet1: data.blogs,    // blogs
-      sheet2: data.Layout    // layout
+      sheet1: data.blogs || [],
+      sheet2: data.Layout || [],
     });
-
   } catch (error: any) {
     console.error('❌ MongoDB fetch error:', error);
     return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
