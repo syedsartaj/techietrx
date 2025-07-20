@@ -17,8 +17,7 @@ const Home = () => {
   const [openCategory, setOpenCategory] = useState(null);
 
   // Extract theme and layoutType from sheet2Data with fallback defaults
-    const layoutt = sheet2Data.find(row => row.layoutType);
-    const type = layoutt?.layoutType.toString().trim();
+    const type = sheet2Data.layoutType;
   const theme = {
     primaryColor: sheet2Data?.primaryColor || '#2563eb', // Blue
     secondaryColor: sheet2Data?.secondaryColor || '#e5e7eb', // Light gray

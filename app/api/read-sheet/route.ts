@@ -1,48 +1,47 @@
-import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
+import mongoose from 'mongoose';
+import Client from '@/models/Client'; // adjust this path to your schema file
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: process.env.GOOGLE_CLIENT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-      },
-      scopes: [
-        'https://www.googleapis.com/auth/spreadsheets',
-        'https://www.googleapis.com/auth/drive',
-      ],
-    });
+    const url = new URL(request.url);
+    const domain = process.env.DOMAIN!;
+    const email = process.env.USER_EMAIL!;
+    const mongoUri = process.env.MongoDB_URL!;
 
-    const client = await auth.getClient();
-    const sheets = google.sheets({ version: 'v4', auth: client as any });
+    if (!domain) {
+      return NextResponse.json({ error: 'Missing domain' }, { status: 400 });
+    }
 
-    const spreadsheetId = process.env.SPREADSHEET_ID!;
+    // Connect to MongoDB
+    if (!mongoose.connections[0].readyState) {
+      await mongoose.connect(mongoUri);
+    }
+//
+    // Find the user by email
+    const user = await Client.findOne({ email });
 
-    const fetchSheetData = async (sheetName: string) => {
-      const response = await sheets.spreadsheets.values.get({
-        spreadsheetId,
-        range: sheetName,
-      });
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
 
-      const rows = response.data.values || [];
-      const [header, ...body] = rows;
-      return body.map((row: any) =>
-        header.reduce((acc: any, key: any, i: any) => ({ ...acc, [key]: row[i] }), {})
-      );
-    };
+    // Find the deployment with the matching domain
+    const deployment = user.Deployments.find((d: any) => d.Domain === domain);
 
-    const [sheet1Data, sheet2Data] = await Promise.all([
-      fetchSheetData('Sheet1'),
-      fetchSheetData('Sheet2'),
-    ]);
+    if (!deployment) {
+      return NextResponse.json({ error: 'Deployment not found' }, { status: 404 });
+    }
+
+    // Assuming only one Data item per deployment
+    const data = deployment.Data[0];
 
     return NextResponse.json({
-      sheet1: sheet1Data,
-      sheet2: sheet2Data,
+      sheet1: data.blogs,    // blogs
+      sheet2: data.Layout    // layout
     });
+
   } catch (error: any) {
-    console.error("❌ Sheet read error:", error);
-    return NextResponse.json({ error: error.message || 'Internal Error' }, { status: 500 });
+    console.error('❌ MongoDB fetch error:', error);
+    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
 }

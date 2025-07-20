@@ -1,37 +1,50 @@
-import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
+import mongoose from 'mongoose';
+import Client from '@/models/Client';
 
 export async function GET() {
   const baseUrl = process.env.DOMAIN!;
-  const spreadsheetId = process.env.SPREADSHEET_ID!;
+    const Domain = process.env.CUSTOM_DOMAIN!;
+  const mongoUri = process.env.MongoDB_URL!;
 
   try {
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: process.env.GOOGLE_CLIENT_EMAIL!,
-        private_key: process.env.GOOGLE_PRIVATE_KEY!.replace(/\\n/g, '\n'),
-      },
-      scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-    });
+    if (!baseUrl || !mongoUri) {
+      return NextResponse.json({ error: 'Missing required env vars' }, { status: 400 });
+    }
 
-    const sheets = google.sheets({ version: 'v4', auth });
-    const res = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range: 'Sheet1!A2:S', // skip header, get all rows
-    });
 
-    const rows = res.data.values || [];
+    if (!mongoose.connections[0].readyState) {
+      await mongoose.connect(mongoUri);
+      console.log('✅ MongoDB connected');
+    }
+
+    const user = await Client.findOne({ 'Deployments.Domain': baseUrl });
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    const deployment = user.Deployments.find(
+      (d: any) => d.Domain === baseUrl
+    );
+
+    if (!deployment || !deployment.Data?.[0]?.blogs) {
+      return new NextResponse('No blog data found', { status: 404 });
+    }
+
+    const blogs = deployment.Data[0].blogs;
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/sitemap-style.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${rows
-  .map(row => {
-    const [id, , , , , , , , , , , , robottxt_publish_date] = row;
+${blogs
+  .map((blog: any) => {
     return `
   <url>
-    <loc>${baseUrl}/blogpage?id=${encodeURIComponent(id)}</loc>
-    <lastmod>${new Date(robottxt_publish_date || new Date()).toISOString()}</lastmod>
+    <loc>${Domain}/${blog.slug}</loc>
+    <lastmod>${new Date(
+      blog.robottxt_publish_date || new Date()
+    ).toISOString()}</lastmod>
   </url>`;
   })
   .join('\n')}
@@ -42,8 +55,9 @@ ${rows
         'Content-Type': 'application/xml',
       },
     });
+
   } catch (err: any) {
-    console.error('❌ Failed to generate sitemap:', err);
+    console.error('❌ Failed to generate sitemap:', err.message, err.stack);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }

@@ -15,8 +15,7 @@ const BlogListClient = () => {
   const searchParams = useSearchParams();
   const selectedCategory = slugify(searchParams.get('cat'));
   // Determine layout from sheet2Data
-  const layoutData = sheet2Data.find(row => row.bloglayout);
-  const blogLayout = layoutData?.bloglayout?.toString().trim() || '1'; // 
+  const blogLayout = sheet2Data.bloglayout || '1'; // 
   const categories = Array.from(
     new Set(sheetData.map(post => post.category?.trim()).filter(Boolean))
   );

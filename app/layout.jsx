@@ -1,17 +1,14 @@
-// app/layout.js or app/layout.jsx
+// app/layout.jsx
 import './globals.css';
-import { DataProvider } from './DataContext'; // Adjust path if needed
-
-export const metadata = {
-  title: 'Your App',
-  description: 'App description',
-};
+import { DataProvider } from './DataContext';
+import DynamicHead from './DynamicHead';
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
         <DataProvider>
+          <DynamicHead />
           {children}
         </DataProvider>
       </body>

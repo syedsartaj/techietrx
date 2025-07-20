@@ -9,8 +9,7 @@ const Contact = () => {
   if (loading) return <p className="text-center p-10">Loading...</p>;
 
   // Find the first row that has a 'Header' value
-  const headerRow = sheet2Data.find(row => row.Header);
- const compname = headerRow.body_services || '';
+ const compname = sheet2Data.body_services || '';
   // // Parse the header value (as string or number)
 
   return (

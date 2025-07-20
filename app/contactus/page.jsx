@@ -10,8 +10,7 @@ const ContactUs = () => {
   if (loading) return <p className="text-center p-10">Loading...</p>;
 
   // Safely extract body_aboutus from sheet2Data[0]
-    const headerRow = sheet2Data.find(row => row.Header);
- const compname = headerRow.body_contactus || '';
+ const compname = sheet2Data.body_contactus || '';
 
   return (
     <div>

@@ -15,10 +15,9 @@ const Navbar = () => {
   }
 
   // Find the first row that has a 'Header' value
-  const headerRow = sheet2Data.find(row => row.Header);
- const compname = headerRow.companyName || '';
+ const compname = sheet2Data.companyName || '';
   // Parse the header value (as string or number)
-  const headerValue = headerRow?.Header?.toString().trim();
+  const headerValue = sheet2Data.Header;
   const navprops = { compname };
 
   // Conditional render based on value

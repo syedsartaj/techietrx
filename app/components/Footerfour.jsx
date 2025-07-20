@@ -10,10 +10,9 @@ const Footer = () => {
   const { sheet2Data, loading } = useData();
 
   if (loading) return <div>Loading footer...</div>;
-  const footerRow = sheet2Data.find(row => row.Footer);
-    const footerValue = footerRow?.Footer || '';
-  const companyName = footerRow?.companyName || '';
-  const companySlogan = footerRow?.companySlogan || '';
+    const footerValue = sheet2Data.Footer || '';
+  const companyName = sheet2Data.companyName || '';
+  const companySlogan = sheet2Data.companySlogan || '';
 
   const footerProps = { companyName, companySlogan };
 

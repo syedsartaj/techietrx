@@ -10,12 +10,11 @@ const Herosection = () => {
 
   if (loading) return <div>Loading hero section...</div>;
 
-  const heroRow = sheet2Data.find(row => row.Hero);
 
-  const heroValue = heroRow?.Hero?.toString().trim();
-  const heading = heroRow?.Heading || '';
-  const subheading = heroRow?.Subheading || '';
-  const buttonText = heroRow?.ButtonText || '';
+  const heroValue = sheet2Data.Hero;
+  const heading = sheet2Data.Heading || '';
+  const subheading = sheet2Data.Subheading || '';
+  const buttonText = sheet2Data.ButtonText || '';
 
   const heroProps = { heading, subheading, buttonText };
 

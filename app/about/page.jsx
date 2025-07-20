@@ -10,8 +10,7 @@ const Contact = () => {
 
   // Safely extract body_aboutus from sheet2Data[0]
   
-  const headerRow = sheet2Data.find(row => row.Header);
- const compname = headerRow.body_aboutus || '';
+ const compname = sheet2Data.body_aboutus || '';
 
   return (
 <div>

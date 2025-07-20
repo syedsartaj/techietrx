@@ -3,9 +3,9 @@ import { useParams } from 'next/navigation';
 import React from 'react';
 import { useEffect,useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useData } from '../../DataContext';
-import Navbar from '../../components/Navbar';
-import Footerfour from '../../components/Footerfour';
+import { useData } from '../DataContext';
+import Navbar from '../components/Navbar';
+import Footerfour from '../components/Footerfour';
 
 const BlogPost = () => {
 
