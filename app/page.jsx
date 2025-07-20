@@ -7,6 +7,7 @@ import Carousel from './components/Carousel';
 import { useData } from './DataContext';
 import Navbar from './components/Navbar';
 import Herosection from './components/Herosection';
+import SkeletonLoader from './components/SkeletonLoader';
 
 const Home = () => {
   const { sheetData, sheet2Data, loading } = useData();
@@ -187,7 +188,7 @@ const Home = () => {
       <Navbar />
       <Herosection />
       {loading ? (
-        <div className="text-center py-10 font-semibold text-lg">Loading blog posts...</div>
+        <SkeletonLoader/>
       ) : (
         renderCarouselLayout()
       )}

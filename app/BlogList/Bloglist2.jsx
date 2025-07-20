@@ -6,6 +6,7 @@ import Footerfour from '../components/Footerfour';
 import Navbar from '../components/Navbar';
 import { useData } from '../DataContext';
 import { useRouter } from 'next/navigation';
+import SkeletonLoader from '../components/SkeletonLoader';
 
 const slugify = (str) => str?.trim().toLowerCase().replace(/\s+/g, '-');
 
@@ -55,7 +56,7 @@ const handleCardClick = (post) => {
     <div className="bg-gray-100 text-gray-900 min-h-screen">
       <Navbar />
       {loading ? (
-        <div className="text-center py-10 font-semibold text-lg">Loading blog posts...</div>
+        <SkeletonLoader/>
       ) : (
         <div className="max-w-6xl mx-auto py-8 px-4">
           {filteredCategories.map((cat, idx) => {

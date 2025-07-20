@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { useData } from '../DataContext';
 import Navbar from '../components/Navbar';
 import Footerfour from '../components/Footerfour';
+import SkeletonLoader from '../components/SkeletonLoader';
 
 const BlogPost = () => {
 
@@ -32,7 +33,7 @@ const slug = params?.slug; // this will be 'a-comprehensive-analysis-of-the-isra
     <div className="bg-gray-100 text-gray-900 min-h-screen">
       <Navbar />
       {loading ? (
-        <div className="text-center py-10 font-semibold text-lg">Loading blog post...</div>
+        <SkeletonLoader/>
       ) : blogPost ? (
         <div className="max-w-3xl mx-auto p-6">
           <h1 className="text-3xl font-bold text-blue-900 mb-4">{blogPost.title}</h1>

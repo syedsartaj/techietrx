@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import SkeletonLoader from './components/SkeletonLoader';
 
 const DataContext = createContext();
 
@@ -11,6 +12,9 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchSheetData = async () => {
+      if(loading){
+        <SkeletonLoader/>
+      }
       try {
         const res = await fetch('/api/read-sheet');
         const data = await res.json();

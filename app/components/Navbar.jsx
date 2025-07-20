@@ -6,12 +6,13 @@ import Headertwo from './Headertwo';
 import Headerthree from './Headerthree';
 import Headerfour from './Headerfour';
 import Headerfive from './Headerfive';
+import SkeletonLoader from './SkeletonLoader';
 
 const Navbar = () => {
   const { sheet2Data, loading } = useData();
 
   if (loading) {
-    return <div>Loading header...</div>;
+    return <SkeletonLoader/>;
   }
 
   // Find the first row that has a 'Header' value

@@ -3,12 +3,13 @@
 import Head from 'next/head';
 import { useContext } from 'react';
 import { useData } from './DataContext';
+import SkeletonLoader from './components/SkeletonLoader';
 
 export default function DynamicHead() {
   const { sheet2Data, loading } = useData();
 
   // Prevent rendering until data is loaded
-  if (loading) return null;
+  if (loading) return <SkeletonLoader/>;
 
   const Heading = sheet2Data.Header || 'Smaksly — Build & Deploy Your Website';
   const companySlogan = sheet2Data.companySlogan || 'Smaksly helps you create and launch modern websites effortlessly, including free hosting and SEO tools.';

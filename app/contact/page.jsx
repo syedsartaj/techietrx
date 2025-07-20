@@ -3,10 +3,11 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footerfour from '../components/Footerfour';
 import { useData } from '../DataContext'; // ✅ Update the path if different
+import SkeletonLoader from '../components/SkeletonLoader';
 
 const Contact = () => {
     const { sheet2Data, loading } = useData();
-  if (loading) return <p className="text-center p-10">Loading...</p>;
+  if (loading) return <SkeletonLoader/>;
 
   // Find the first row that has a 'Header' value
  const compname = sheet2Data.body_services || '';

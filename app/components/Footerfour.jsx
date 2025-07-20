@@ -5,11 +5,12 @@ import Footerone from './Ooterone';
 import Footertwo from './Ootertwo';
 import Footerthree from './Ooterthree';
 import Footerfour from './Footerfour';
+import SkeletonLoader from './SkeletonLoader';
 
 const Footer = () => {
   const { sheet2Data, loading } = useData();
 
-  if (loading) return <div>Loading footer...</div>;
+  if (loading) return <SkeletonLoader/>;
     const footerValue = sheet2Data.Footer || '';
   const companyName = sheet2Data.companyName || '';
   const companySlogan = sheet2Data.companySlogan || '';

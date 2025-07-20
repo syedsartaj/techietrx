@@ -4,11 +4,12 @@ import { useData } from '../DataContext';
 import Herosectionone from './Herosectionone';
 import Herosectiontwo from './Herosectiontwo';
 import Herosectionthree from './Herosectionthree';
+import SkeletonLoader from './SkeletonLoader';
 
 const Herosection = () => {
   const { sheet2Data, loading } = useData();
 
-  if (loading) return <div>Loading hero section...</div>;
+  if (loading) return <SkeletonLoader/>;
 
 
   const heroValue = sheet2Data.Hero;

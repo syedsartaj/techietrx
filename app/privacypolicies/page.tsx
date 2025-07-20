@@ -3,11 +3,12 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footerfour from '../components/Footerfour';
 import { useData } from '../DataContext'; // ✅ Update the path if different
+import SkeletonLoader from '../components/SkeletonLoader';
 
 const ContactUs = () => {
   const { sheet2Data, loading } = useData();
 
-  if (loading) return <p className="text-center p-10">Loading...</p>;
+  if (loading) return <SkeletonLoader/>;
 
   // Safely extract body_aboutus from sheet2Data[0]
   

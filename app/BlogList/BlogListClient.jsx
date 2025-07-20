@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import { useData } from '../DataContext';
 import Bloglist2 from './Bloglist2';
 import Bloglist1 from './Bloglist1';
+import SkeletonLoader from '../components/SkeletonLoader';
 
 const slugify = (str) => str?.trim().toLowerCase().replace(/\s+/g, '-');
 
@@ -27,7 +28,7 @@ const BlogListClient = () => {
   return (
     <div className="bg-gray-100 text-gray-900 min-h-screen">
 {loading ? (
-        <div className="text-center py-10 font-semibold text-lg">Loading blog posts...</div>
+        <SkeletonLoader/>
       ) : blogLayout === '1' ? (
         <Bloglist1/>
       ) : blogLayout === '2' ? (
