@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const baseUrl = process.env.DOMAIN; // Replace with your actual domain in production
+  const baseUrl = process.env.CUSTOM_DOMAIN; // Replace with your actual domain in production
 
   const pages = ['', 'about', 'contactus', 'BlogList'];
 
