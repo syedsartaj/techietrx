@@ -8,6 +8,7 @@ import { useData } from './DataContext';
 import Navbar from './components/Navbar';
 import Herosection from './components/Herosection';
 import SkeletonLoader from './components/SkeletonLoader';
+import Head from 'next/head';
 
 const Home = () => {
   const { sheetData, sheet2Data, loading } = useData();
@@ -185,6 +186,10 @@ const Home = () => {
 
   return (
     <div className="bg-gray-100 text-gray-900 min-h-screen" style={{ fontFamily: theme.fontFamily }}>
+      <Head>
+        <title>Techietrx</title>
+        <link rel="canonical" href="https://techietrx.com/" />
+      </Head>
       <Navbar />
       <Herosection />
       {loading ? (

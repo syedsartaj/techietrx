@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footerfour from '../components/Footerfour';
 import { useData } from '../DataContext'; // ✅ Update the path if different
 import SkeletonLoader from '../components/SkeletonLoader';
+import Head from 'next/head';
 
 const ContactUs = () => {
   const { sheet2Data, loading } = useData();
@@ -15,6 +16,10 @@ const ContactUs = () => {
 
   return (
     <div>
+      <Head>
+        <title>Contact | TechieTRX</title>
+        <link rel="canonical" href="https://www.techietrx.com/contactus" />
+      </Head>
       <Navbar />
       <div className="bg-white text-gray-900 py-10 px-6 max-w-6xl mx-auto">
         <div className="prose max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: compname }} />
