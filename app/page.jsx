@@ -9,6 +9,10 @@ import Navbar from './components/Navbar';
 import Herosection from './components/Herosection';
 import SkeletonLoader from './components/SkeletonLoader';
 import Head from 'next/head';
+import Link from 'next/link';
+
+const slugify = (str) =>
+  str?.trim().toLowerCase().replace(/\s+/g, '-');
 
 const Home = () => {
   const { sheetData, sheet2Data, loading } = useData();
@@ -17,6 +21,14 @@ const Home = () => {
   );
   const [activeCategory, setActiveCategory] = useState(categories[0] || '');
   const [openCategory, setOpenCategory] = useState(null);
+  const handleCardClick = (post) => {
+    const id = post.id || post.link;
+    const keyword = post.slug;
+    if (id && keyword) {
+      localStorage.setItem('blogId', id);
+      router.push(`/${encodeURIComponent(keyword)}`);
+    }
+  };
 
   // Extract theme and layoutType from sheet2Data with fallback defaults
     const type = sheet2Data.layoutType;
@@ -30,25 +42,58 @@ const Home = () => {
   const renderCarouselLayout = () => {
     switch (type) {
       case '1': // Vertical Stacked Carousels
-        return categories.map((cat, idx) => {
-          const postsForCategory = sheetData.filter(
-            post => post.category?.trim() === cat
-          );
-          return (
-            <section
-              key={idx}
-              className="py-12"
-              style={{ backgroundColor: theme.secondaryColor, fontFamily: theme.fontFamily }}
-            >
-              <div className="container mx-auto px-4">
-                <h2 className="text-3xl font-bold mb-6" style={{ color: theme.primaryColor }}>
-                  {cat}
-                </h2>
-                <Carousel title={cat} posts={postsForCategory} />
+        return     <div className="max-w-7xl mx-auto px-4 py-8 space-y-16">
+      {categories.map((category, idx) => {
+        const posts = sheetData
+          .filter(post => slugify(post.category) === slugify(category))
+          .slice(0, 4); // First 4 posts
+
+        return (
+          <div key={idx}>
+            {/* Header with View All */}
+            <div className="flex justify-between items-center mb-4">
+              <div className="text-xl font-semibold flex items-center gap-2">
+                <span className="border-l-4 border-red-600 pl-2">{category}</span>
+                <hr className="flex-grow border-t border-gray-300 ml-2" />
               </div>
-            </section>
-          );
-        });
+              <Link
+                href={`/BlogList?cat=${encodeURIComponent(category)}`}
+                className="text-red-600 font-medium hover:underline text-sm"
+              >
+                View All →
+              </Link>
+            </div>
+
+            {/* Blog Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              {posts.map((post, postIdx) => (
+                <div
+                  key={postIdx}
+                  onClick={() => handleCardClick(post)}
+                  className="cursor-pointer"
+                >
+                  {post.image_url && (
+                    <img
+                      src={post.image_url}
+                      alt={post.title}
+                      className="w-full h-56 object-cover rounded-md mb-2"
+                    />
+                  )}
+                  <p className="text-xs text-red-600 font-bold uppercase">{post.category}</p>
+                  <h3 className="text-sm font-semibold leading-snug line-clamp-2">
+                    {post.title}
+                  </h3>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {post.robottxt_publish_date}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
 
       case '2': // Grid-Based Carousels
         return (

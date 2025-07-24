@@ -7,6 +7,7 @@ import Bottom from '../components/Bottom';
 import Navbar from '../components/Navbar';
 import { useData } from '../DataContext';
 import SkeletonLoader from '../components/SkeletonLoader';
+import Footer from '../components/Footerfour';
 
 const slugify = (str) => str?.trim().toLowerCase().replace(/\s+/g, '-');
 
@@ -92,7 +93,7 @@ const handleCardClick = (post) => {
           )}
         </div>
       )}
-      <Bottom />
+      <Footer />
     </div>
   );
 };
