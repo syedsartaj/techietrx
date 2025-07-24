@@ -10,6 +10,7 @@ import Herosection from './components/Herosection';
 import SkeletonLoader from './components/SkeletonLoader';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const slugify = (str) =>
   str?.trim().toLowerCase().replace(/\s+/g, '-');
@@ -21,6 +22,8 @@ const Home = () => {
   );
   const [activeCategory, setActiveCategory] = useState(categories[0] || '');
   const [openCategory, setOpenCategory] = useState(null);
+  const router = useRouter();
+
   const handleCardClick = (post) => {
     const id = post.id || post.link;
     const keyword = post.slug;

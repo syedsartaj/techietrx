@@ -40,10 +40,6 @@ const handleCardClick = (post) => {
       onClick={() => handleCardClick(post)}
       className="bg-white p-4 rounded-lg shadow-md mb-4 hover:shadow-lg transition-shadow duration-200"
     >
-      <h3 className="text-lg font-semibold text-blue-800">{post.title}</h3>
-      <p className="text-sm text-gray-600">
-        {post.robottxt_publish_date} by {post.robottxt_auther_name || 'John Doe'}
-      </p>
       <p className="text-sm text-gray-700">{post.robottxt_headline}</p>
       {post.image_url && (
         <img
@@ -52,6 +48,10 @@ const handleCardClick = (post) => {
           className="w-full h-40 object-cover rounded mt-2"
         />
       )}
+      <h3 className="text-lg font-semibold text-blue-800">{post.title}</h3>
+      <p className="text-sm text-gray-600">
+        {post.robottxt_publish_date} by {post.robottxt_auther_name || 'John Doe'}
+      </p>
     </div>
   );
 

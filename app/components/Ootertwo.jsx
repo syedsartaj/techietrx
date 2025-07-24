@@ -16,7 +16,6 @@ export default function Footertwo({ companyName, companySlogan }) {
         <div>
           <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2">
-            <li><Link href="/contact" className="hover:text-blue-400">Services</Link></li>
             <li><Link href="/about" className="hover:text-blue-400">About</Link></li>
             <li><Link href="/BlogList" className="hover:text-blue-400">Blog</Link></li>
             <li><Link href="/contactus" className="hover:text-blue-400">Contact</Link></li>

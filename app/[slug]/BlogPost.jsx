@@ -40,10 +40,10 @@ const slug = params?.slug; // this will be 'a-comprehensive-analysis-of-the-isra
           <img
             src={blogPost.image_url}
             alt={blogPost.title}
-            className="w-full h-60 object-cover rounded mb-4"
+            className="w-full h-auto rounded mb-4"
           />
           <p className="text-sm text-gray-600 mb-2">
-            {blogPost.robottxt_publish_date} by {blogPost.robottxt_auther_name || 'Unknown'}
+            {blogPost.robottxt_publish_date} by {blogPost.robottxt_auther_name || 'John Doe'}
           </p>
           <p className="text-gray-800">{blogPost.robottxt_headline}</p>
           {blogPost.body && (

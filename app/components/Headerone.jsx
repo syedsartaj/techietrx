@@ -34,10 +34,10 @@ export default function Headerone({ compname }) {
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         {/* Left: Socials */}
         <div className="hidden md:flex space-x-4 text-xl text-black">
-          <a href="#" aria-label="Instagram"><FaInstagram /></a>
-          <a href="#" aria-label="Facebook"><FaFacebookF /></a>
-          <a href="#" aria-label="LinkedIn"><FaLinkedinIn /></a>
-          <a href="#" aria-label="Pinterest"><FaPinterestP /></a>
+          <a href="/" aria-label="Instagram"><FaInstagram /></a>
+          <a href="/" aria-label="Facebook"><FaFacebookF /></a>
+          <a href="/" aria-label="LinkedIn"><FaLinkedinIn /></a>
+          <a href="/" aria-label="Pinterest"><FaPinterestP /></a>
         </div>
 
         {/* Center: Logo */}
@@ -77,10 +77,10 @@ export default function Headerone({ compname }) {
       {menuOpen && (
         <div className="md:hidden px-4 pb-4 space-y-2">
           <div className="flex justify-center space-x-4 text-xl text-black">
-            <a href="#" aria-label="Instagram"><FaInstagram /></a>
-            <a href="#" aria-label="Facebook"><FaFacebookF /></a>
-            <a href="#" aria-label="LinkedIn"><FaLinkedinIn /></a>
-            <a href="#" aria-label="Pinterest"><FaPinterestP /></a>
+            <a href="/" aria-label="Instagram"><FaInstagram /></a>
+            <a href="/" aria-label="Facebook"><FaFacebookF /></a>
+            <a href="/" aria-label="LinkedIn"><FaLinkedinIn /></a>
+            <a href="/" aria-label="Pinterest"><FaPinterestP /></a>
           </div>
           <Link href="/about" className="block text-center py-2 text-black hover:text-red-600">About Us</Link>
           <Link href="/Contact" className="block text-center py-2 text-black hover:text-red-600">Contact</Link>
