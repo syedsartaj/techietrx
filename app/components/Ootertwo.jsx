@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function Footertwo({ companyName, companySlogan }) {
+export default function Footertwo({ companyName, companySlogan, emailid }) {
   return (
     <footer className="bg-gray-900 text-white py-12">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -10,6 +10,8 @@ export default function Footertwo({ companyName, companySlogan }) {
             {companyName}
           </Link>
           <p className="text-sm">{companySlogan}</p>
+          <br/>
+          <p className="text-sm">{emailid}</p>          
         </div>
 
         {/* Navigation */}
