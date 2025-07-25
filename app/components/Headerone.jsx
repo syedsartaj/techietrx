@@ -56,7 +56,7 @@ export default function Headerone({ compname }) {
               About Us
             </Link>
             <Link
-              href="/Contact"
+              href="/contactus"
               className="bg-white text-black border border-black px-4 py-2 text-sm font-medium hover:bg-gray-100 rounded"
             >
               Contact
